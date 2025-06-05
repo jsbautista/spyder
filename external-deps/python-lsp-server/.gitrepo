@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/jsbautista/python-lsp-server.git
 	branch = fixInlineComments
-	commit = c7349d681738cb0ae56bb7ba918271b8cbabe1b5
-	parent = 9b9a6db6d0f7417a42c8414bdcf89515b3b40b6e
+	commit = 7aa263633a88bc7c2aabd62b4eaa595999049a5e
+	parent = aa1f2642fe29d16c88329dbb8d13add4403cc178
 	method = merge
 	cmdver = 0.4.9
