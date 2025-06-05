@@ -2,7 +2,6 @@
 # Copyright 2021- Python Language Server Contributors.
 
 import logging
-import re
 from pathlib import Path
 
 from pylsp import hookimpl
@@ -20,9 +19,6 @@ def pylsp_document_symbols(config, document):
     symbols = []
     exclude = set({})
     redefinitions = {}
-    pattern_import = re.compile(
-        r"^\s*(?!#)\s*(from\s+[.\w]+(\.[\w]+)*\s+import\s+[\w\s,()*]+|import\s+[\w\s,.*]+)"
-    )
 
     while definitions != []:
         d = definitions.pop(0)
@@ -31,8 +27,7 @@ def pylsp_document_symbols(config, document):
         if not add_import_symbols:
             # Skip if there's an import in the code the symbol is defined.
             code = d.get_line_code()
-
-            if pattern_import.match(code):
+            if " import " in code or "import " in code:
                 continue
 
             # Skip imported symbols comparing module names.
