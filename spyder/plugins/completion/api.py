@@ -912,7 +912,6 @@ class SpyderCompletionProvider(QObject, CompletionConfigurationObserver):
     # :class:`spyder.api.widgets.status.StatusBarWidget` or
     # a callable that returns a StatusBarWidget.
     #
-    # type: Union[StatusBarWidget, Callable[[QWidget], StatusBarWidget]]
     #
     # STATUS_BAR_CLASSES = [
     #     StatusBarClass1,
@@ -920,7 +919,7 @@ class SpyderCompletionProvider(QObject, CompletionConfigurationObserver):
     #     FunctionThatReturnsAStatusBar
     #     ...
     # ]
-    STATUS_BAR_CLASSES = []
+    STATUS_BAR_CLASSES = []  # type: Union[StatusBarWidget, Callable[[QWidget], StatusBarWidget]]
 
     def __init__(self, parent, config):
         """
