@@ -514,9 +514,16 @@ class ObjectExplorer(BaseDialog, SpyderWidgetMixin, SpyderFontsMixin):
                 self.editor.set_language('Rst')
 
         except Exception as ex:
+            if "No data to measure" in str(ex):
+                # Manejo específico
+                #self.editor.setStyleSheet("color: orange;")
+                #self.editor.setPlainText(
+                #    "No hay datos suficientes para mostrar los detalles."
+                #)
+                return
             self.editor.setStyleSheet("color: red;")
             stack_trace = traceback.format_exc()
-            self.editor.setPlainText("{}\n\n{}".format(ex, stack_trace))
+            self.editor.setPlainText("ERROR ENCONTRADO{}\n\n{}".format(ex, stack_trace))
             self.editor.setWordWrapMode(
                 QTextOption.WrapAtWordBoundaryOrAnywhere)
 

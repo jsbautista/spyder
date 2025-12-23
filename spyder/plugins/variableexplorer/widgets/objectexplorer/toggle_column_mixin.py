@@ -64,10 +64,12 @@ class ToggleColumnMixIn(SpyderWidgetMixin):
                                                    Qt.DisplayRole)
             logger.debug("Adding: col {}: {}".format(col, column_label))
             func = self.__make_show_column_function(col)
+            logger.debug("Fallo en este punto 0")
             is_checked = checked.get(
                 column_label,
                 not horizontal_header.isSectionHidden(col)
             )
+            logger.debug("Fallo en este punto 1")
             action = self.create_action(
                 name=f'show_{column_label}_column',
                 text=str(column_label),
@@ -76,9 +78,11 @@ class ToggleColumnMixIn(SpyderWidgetMixin):
                 initial=is_checked,
                 parent=self.toggle_column_actions_group
             )
+            logger.debug("Fallo en este punto 2")
             action.setCheckable(checkable.get(column_label, True))
             action.setEnabled(enabled.get(column_label, True))
             self.__toggle_functions.append(func)  # keep reference
+            logger.debug("Fallo en este punto 3")
             horizontal_header.addAction(action)
             horizontal_header.setSectionHidden(col, not is_checked)
 

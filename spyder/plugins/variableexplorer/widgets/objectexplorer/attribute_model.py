@@ -65,7 +65,7 @@ def safe_tio_call(obj_fn, tree_item, log_exceptions=False):
         return str(obj_fn(tio))
     except Exception as ex:
         if log_exceptions:
-            logger.exception(ex)
+            logger.exception(ex + "Find error")
         return ""
 
 
