@@ -13,7 +13,8 @@ https://microsoft.github.io/language-server-protocol/specifications/specificatio
 """
 
 # Standard library imports
-from typing import Any, Optional, Tuple, Union
+from __future__ import annotations
+from typing import Any, Optional, Tuple, TYPE_CHECKING, Union
 
 # Third party imports
 from qtpy import PYSIDE6
@@ -21,6 +22,11 @@ from qtpy.QtCore import Signal, QObject, Slot, Qt
 
 # Local imports
 from spyder.api.config.mixins import SpyderConfigurationObserver
+
+if TYPE_CHECKING:
+    from qtpy.QtWidgets import QWidget
+    
+    from spyder.api.widgets.status import StatusBarWidget
 
 # Supported LSP programming languages
 SUPPORTED_LANGUAGES = [
@@ -919,7 +925,9 @@ class SpyderCompletionProvider(QObject, CompletionConfigurationObserver):
     #     FunctionThatReturnsAStatusBar
     #     ...
     # ]
-    STATUS_BAR_CLASSES = []  # type: Union[StatusBarWidget, Callable[[QWidget], StatusBarWidget]]
+    STATUS_BAR_CLASSES: Union[
+        StatusBarWidget, Callable[[QWidget], StatusBarWidget]
+    ] = []
 
     def __init__(self, parent, config):
         """
