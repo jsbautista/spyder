@@ -1989,8 +1989,11 @@ class IPythonConsoleWidget(PluginMainWidget, CachedKernelMixin):  # noqa: PLR090
 
         # Add client to widget
         self.add_tab(
-            client, name=client.get_name(), filename=filename,
-            give_focus=give_focus)
+            client,
+            name=client.get_name(),
+            filename=filename,
+            give_focus=give_focus,
+        )
 
         return client
 
@@ -2309,6 +2312,13 @@ class IPythonConsoleWidget(PluginMainWidget, CachedKernelMixin):  # noqa: PLR090
                 )
                 client.close_client(is_last_client)
                 open_clients.remove(client)
+
+        # Set clients list with those that are left open
+        self.clients = open_clients
+
+        # Create a new client if the console is about to become empty
+        if not self.tabwidget.count() and self.create_new_client_if_empty:
+            self.create_new_client()
 
     def reconnect_remote_clients(self, server_id):
         """Request reconnection for all clients bound to a remote server."""
