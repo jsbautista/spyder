@@ -2307,6 +2307,13 @@ class IPythonConsoleWidget(PluginMainWidget, CachedKernelMixin):  # noqa: PLR090
                 client.is_remote()
                 and client.jupyter_api.server_id == server_id
             ):
+                # Since the server is being stopped, we can safely close the
+                # client's remote APIs (e.g. Jupyter and files). That will
+                # prevent sending additional requests to the server (e.g. to
+                # shutdown the kernel), which at some point it won't be able to
+                # process.
+                client.close_remote_apis()
+
                 is_last_client = (
                     len(self.get_related_clients(client, open_clients)) == 0
                 )
